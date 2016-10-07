@@ -23,20 +23,28 @@ readableStream.on("data", function(chunk){
 var overrideStr = "ABCDEFGHIJLMKOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
 fs.writeFile(myPath, overrideStr, function(err)
                                                 {
-                                                   if (err) throw err;
-                                                   console.log("done");
+                                                  if (err) throw err;
+                                                  console.log(fs.readFileSync(myPath, 'utf-8'))
                                                 }
                                             );
+
+
+
+
 //4
-fs.appendFile(myPath, "abc");
-myData = fs.readFileSync(myPath, 'utf-8')
-console.log(myData);
-
-
+fs.appendFile(myPath, "abc", function(err)
+                                      {
+                                         if (err) throw err;
+                                         console.log(fs.readFileSync(myPath, 'utf-8'))
+                                       }
+                                 );
 //5
 
 
 buffer[10] = "7";
-fs.writeFile(myPath, buffer);
-myData = fs.readFileSync(myPath, 'utf-8')
-console.log(myData);
+fs.writeFile(myPath, buffer, function(err)
+                                    {
+                                        if (err) throw err;
+                                        console.log(fs.readFileSync(myPath, 'utf-8'))
+                                     }
+                               );
