@@ -4,47 +4,31 @@ const myPath = "./cs572.txt";
 
 //1
 var myData = fs.readFileSync(myPath,"utf-8");
-var buffer = new Buffer(myData, "utf-8");
-console.log(myData);
-console.log(buffer.length);
+console.log(myData.length)
 
 //2
-var readableStream = fs.createReadStream(myPath, {encoding:'utf-8', hightWaterMark:1});
-readableStream.on("data", function(chunk){
-    for(var i=10; i<14; i++)
-    {
-        console.log("MyChuck " + chunk[i]);
-    }
-}).on("end", function () {
-    console.log("finished chunk")
-});
+var myfile = fs.readFile(myPath, function(err, fileData){
+    var mySlice = fileData.slice(10,14);
+    console.log(`mySlice: ${mySlice.toString()}`);
+
+    //5
+    fileData[10] = "7";
+    fs.writeFile(myPath, fileData, (e)=>{fs.readFile(myPath, 'utf-8', (e,d)=> console.log(`5: ${d}`))});
+
+})
 
 //3
 var overrideStr = "ABCDEFGHIJLMKOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
 fs.writeFile(myPath, overrideStr, function(err)
                                                 {
                                                   if (err) throw err;
-                                                  console.log(fs.readFileSync(myPath, 'utf-8'))
-                                                }
+                                                  fs.readFile(myPath, 'utf-8', (e,d)=> console.log(`3: ${d}`))                                                }
                                             );
-
-
-
 
 //4
 fs.appendFile(myPath, "abc", function(err)
                                       {
                                          if (err) throw err;
-                                         console.log(fs.readFileSync(myPath, 'utf-8'))
+                                         fs.readFile(myPath, 'utf-8', (e,d)=> console.log(`4: ${d}`))  
                                        }
                                  );
-//5
-
-
-buffer[10] = "7";
-fs.writeFile(myPath, buffer, function(err)
-                                    {
-                                        if (err) throw err;
-                                        console.log(fs.readFileSync(myPath, 'utf-8'))
-                                     }
-                               );
