@@ -3,11 +3,9 @@ var fs = require('fs');
 
 app.set('view engine', 'ejs');
 app.set('trust proxy', true);
-app.enable('trust proxy');
 app.enable('case sensitive routing');
+app.set('strict rounting', true);
 app.set('x-powered-by', false);
-
-
 
 
 app.get("/inventors", function(request, response){
