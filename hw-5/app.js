@@ -4,7 +4,7 @@ var fs = require('fs');
 app.set('view engine', 'ejs');
 app.set('trust proxy', true);
 app.enable('case sensitive routing');
-app.set('strict rounting', true);
+app.set('strict routing', true);
 app.set('x-powered-by', false);
 
 
