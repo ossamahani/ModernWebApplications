@@ -5,7 +5,7 @@ var fs = require("fs");
 /* GET home page. */
 router.get('/contactus', function(req, res, next) {
   var errors = req.validationErrors();
-  res.render('contactus', { title: 'Contact Us', errors:errors, csrftoken: req.csrfToken()});
+  res.render('contactus', { title: 'Contact Us', errors: errors, csrftoken: req.csrfToken()});
 });
 
 
