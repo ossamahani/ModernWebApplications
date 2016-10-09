@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+
+     
+    <% if(errors) {%>
+      <ul style="color:red;">
+         <% errors.forEach(function(error){ %>
+            <li><%= error.msg %></li>
+         <% }); %>
+      </ul>   
+    <%}%>   
+
+
+      <form action="/contactus" method="post">
+        <table>
+           <tr> <td>Full Name</td> <td><input type="text" name="fullName"/></td></tr>
+           <tr> 
+                <td>Type</td> 
+                <td>
+                 <select name="type">
+                    <option label="Suggestion">suggestion</option>
+                    <option label="Complaint">complaint</option>
+                  </select>  
+                 </td> 
+           </tr>
+           <tr> <td>Message</td> <td><input type="text" name="message"/></td> </tr>
+           <input type="hidden" name="_csrf" value='<%=csrftoken%>'"/>
+           <tr><td></td><td><input type="submit" value="Submit"/></td></tr>
+       </form>    
+   </body>
+</html>
