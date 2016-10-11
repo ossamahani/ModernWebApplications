@@ -23,6 +23,7 @@ router.get('/', function(req, res, next) {
             db.collection('lab1').findOne({},function(err, doc){
                  if(err) throw err;
                  res.render('index', { title: 'My Decrypted Message', message:decrypt(doc.message)});
+                 db.close();
       });
     });
 });
