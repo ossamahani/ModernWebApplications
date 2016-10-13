@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <form action="/search" method="post">
+        <table>
+           <tr> <td>Name</td> <td><input type="text" name="name"/></td></tr>
+           <tr> 
+                <td>Category</td> 
+                <td>
+                 <select name="category">
+                    <option label="School">school</option>
+                    <option label="Resturant">resturant</option>
+                    <option label="Hospital">resturant</option>
+                    <option label="Bank">resturant</option>
+                  </select>  
+                 </td> 
+           </tr>
+           <tr><td><input type="submit" value="Search"/></td></tr>
+       </form>    
+
+
+  </body>
+</html>
