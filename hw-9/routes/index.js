@@ -14,12 +14,17 @@ router.get('/search', function(req, res, next) {
 });
 
 
-router.get('/search', function(req, res, next) {
+router.post('/search', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
-            db.collection('lab9').insert({name:req.body.name, category:req.body.category,location:[long, lat]},function(err){
+            db.collection('lab9').find({'$text' : {'$search': req.body.name}} , function(err, doc){
                  if(err) throw err;
+                 console.dir(doc);
                  db.close();
-        });
+            // db.collection('lab9').find({location:{$near:['currentLong', 'currentLat']}},function(err,doc){
+            //      if(err) throw err;
+            //      console.dir(doc);
+            //      db.close();
+      });
    });
 });
 

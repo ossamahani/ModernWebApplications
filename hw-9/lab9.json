@@ -1,0 +1,9 @@
+{"_id":{"$oid":"580004f1f085e82be4bd080c"},"name":"MUM Swimming Pool","category":"picnic","location":[-91.9693199,41.0249898]}
+{"_id":{"$oid":"5800053bf085e82be4bd080d"},"name":"Waterworks Park","category":"picnic","location":[-91.9586125,41.0198579]}
+{"_id":{"$oid":"5800055ff085e82be4bd080e"},"name":"Maharishi University Of Management","category":"school","location":[-91.9647494,41.01594]}
+{"_id":{"$oid":"58000587f085e82be4bd080f"},"name":"Everybody's Whole Foods","category":"resturant","location":[-91.9582263,41.0117627]}
+{"_id":{"$oid":"580005d2f085e82be4bd0810"},"name":"India Cafe","category":"resturant","location":[-91.961917,41.0016909]}
+{"_id":{"$oid":"580005fbf085e82be4bd0811"},"name":"Noodle House","category":"resturant","location":[-91.961917,41.0016909]}
+{"_id":{"$oid":"58000633f085e82be4bd0812"},"name":"midwestone bank","category":"resturant","location":[-91.9747142,40.9996412]}
+{"_id":{"$oid":"5800066cf085e82be4bd0813"},"name":"Jefferson County Health Center","category":"resturant","location":[-91.9671028,40.986158]}
+{"_id":{"$oid":"580006aaf085e82be4bd0814"},"name":"MUM Library","category":"school","location":[-91.9702369,41.0179371]}
