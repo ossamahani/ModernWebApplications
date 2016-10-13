@@ -16,15 +16,16 @@ router.get('/search', function(req, res, next) {
 
 router.post('/search', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
-            db.collection('lab9').find({'$text' : {'$search': req.body.name}} , function(err, doc){
+         db.collection('lab9').findOne({'$text' : {'$search': req.body.name}} , function(err, doc){
                  if(err) throw err;
-                 console.dir(doc);
-                 db.close();
-            // db.collection('lab9').find({location:{$near:['currentLong', 'currentLat']}},function(err,doc){
-            //      if(err) throw err;
-            //      console.dir(doc);
-            //      db.close();
-      });
+                 console.dir("Location from Search "+ doc.location);
+         });
+
+        db.collection('lab9').findOne({'location':{'$near':{'$geometry':{type: 'point', coordinates:[-91.9693199, 41.0249898]}, '$maxDistance':20000}}},function(err,doc){
+                 if(err) throw err;
+                 console.dir("Location from Near "+ doc.location);
+
+         });
    });
 });
 
