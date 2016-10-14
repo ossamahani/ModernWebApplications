@@ -22,10 +22,10 @@ router.post('/search', function(req, res, next) {
                  var coord = doc.location;
        
 
-        db.collection('lab9').findOne({'location':{'$near':{'$geometry':{'type': 'point', 'coordinates': coord}, '$maxDistance':20000}}},function(err,doc){
-                 if(err) throw err;
+     db.collection('lab9').find({'location':{'$near':{'$geometry':{'type': 'point', 'coordinates': coord}, '$maxDistance':20000}}}).forEach(function(doc){
                  console.dir("Location from Near "+ doc.location);
-         });
+     });
+  
          });
    });
 });
