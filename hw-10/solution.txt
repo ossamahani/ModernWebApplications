@@ -1,0 +1,16 @@
+1- Find all zip codes in Iowa state
+db.lab10.aggregate([ {$match: {state:'IA'}} , {$project:{_id:1}} ])
+
+
+
+2- Find all zip codes with a population less than 1000
+db.lab10.aggregate([ {$match: {pop:{$lt:1000}}},{$project:{_id:1}} ])
+
+
+
+3- Find all cities that have more than one zip code, sort the result by city and state
+db.lab10.aggregate([ {$group : {_id:{city:'$city', state:'$state'}, num_zips : {$sum:1} } } , {$match: {num_zips : {$gt:1} } }, {$sort: {_id:1}  } ])
+
+4-Display the least populated city in each state
+db.lab10.aggregate([ {$group : {_id:{state:'$state', city:'$city'}, population: {$sum:'$pop'} } }, {$sort:{population:1}}, {$group: {_id:'$_id.state', city: {$first:'$_id.city'} , population:{$first:'$population'} }},  {$sort: {_id:1}} ])
+ 
