@@ -19,9 +19,10 @@ router.post('/search', function(req, res, next) {
          db.collection('lab9').findOne({'$text' : {'$search': req.body.name}} , function(err, doc){
                  if(err) throw err;
                  console.dir("Location from Search "+ doc.location);
+                 var coord = doc.location;
          });
 
-        db.collection('lab9').findOne({'location':{'$near':{'$geometry':{type: 'point', coordinates:[-91.9693199, 41.0249898]}, '$maxDistance':20000}}},function(err,doc){
+        db.collection('lab9').findOne({'location':{'$near':{'$geometry':{'type': 'point', 'coordinates': coord}, '$maxDistance':20000}}},function(err,doc){
                  if(err) throw err;
                  console.dir("Location from Near "+ doc.location);
 
