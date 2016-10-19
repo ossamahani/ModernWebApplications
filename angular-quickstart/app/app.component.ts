@@ -1,28 +1,12 @@
 import { Component } from '@angular/core';
-
-export class Product {
-  id: number;
-  name: string;
-}
-
-const PRODUCTS : Product[] = [
-  { id: 11, name: 'Iphone' },
-  { id: 12, name: 'Samsung Tablet' },
-  { id: 13, name: 'Samsung Note3' },
-  { id: 14, name: 'Lenovo' },
-  { id: 15, name: 'HP' },
-  { id: 16, name: 'DELL Latitude' },
-  { id: 17, name: 'Toshiba' },
-  { id: 18, name: 'ACER' },
-  { id: 19, name: 'Mac Notebook' },
-  { id: 20, name: 'Kindle' }
-];
-
-
+import { Product } from './product';
+import { ProductService } from './product.service';
+import { OnInit } from '@angular/core';
 
 
 @Component({
   selector: 'my-app',
+  providers: [ProductService],
   template: `
     <h2>My Products</h2>
     <ul class="products">
@@ -30,14 +14,7 @@ const PRODUCTS : Product[] = [
            <span class="badge">{{product.id}}</span> {{product.name}}
       </li>
     </ul>
-    <div *ngIf="selectedProduct">
-      <h2>{{selectedProduct.name}} details!</h2>
-      <div><label>id: </label>{{selectedProduct.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="selectedProduct.name" placeholder="name"/>
-      </div> 
-    </div>   
+    <my-product-detail [product]="selectedProduct"></my-product-detail>
   `
   ,
   styles: [`
@@ -91,14 +68,22 @@ const PRODUCTS : Product[] = [
 `] 
 
 })
-export class AppComponent { 
+export class AppComponent implements OnInit { 
   title = 'Tour of Products';
   selectedProduct: Product;
+  products : Product[];
+
+  constructor(private productService : ProductService){}
+
+  getProducts() : void {
+     this.productService.getProducts().then(products=>this.products=products);
+  }
+
+  ngOnInit(): void {
+    this.getProducts();
+  }
 
   onSelect(product: Product): void {
       this.selectedProduct = product;
     }
-
-  products = PRODUCTS;
-  
 }
