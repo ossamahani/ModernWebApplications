@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Product } from './product';
 
+
 @Component({
   selector: 'my-product-detail',
   template: `
@@ -11,10 +12,21 @@ import { Product } from './product';
       <label>name: </label>
       <input [(ngModel)]="product.name" placeholder="name"/>
     </div>
+    <div>quantity: <input [(ngModel)]="quantity"></div>
+    <div>
+      <label>total price: </label>
+      {{ product.price | calculatePrice : quantity }}
+    </div>
+
   </div>
 `
 })
+
+
 export class ProductDetailComponent {
   @Input()
   product: Product;
+  quantity=1;
 }
+
+
