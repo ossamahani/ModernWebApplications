@@ -7,7 +7,7 @@ import { Product } from './product';
   template: `
   <div *ngIf="product">
     <h2>{{product.name}} details!</h2>
-    <div><label>id: </label>{{product.id}}</div>
+    <div><label>id: </label><label myHighlight>{{product.id}}</label></div>
     <div>
       <label>name: </label>
       <input [(ngModel)]="product.name" placeholder="name"/>
@@ -15,7 +15,7 @@ import { Product } from './product';
     <div>quantity: <input [(ngModel)]="quantity"></div>
     <div>
       <label>total price: </label>
-      {{ product.price | calculatePrice : quantity }}
+      <label myHighlight>{{ product.price | calculatePrice : quantity }}</label>
     </div>
 
   </div>
