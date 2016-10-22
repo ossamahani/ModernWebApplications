@@ -9,21 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var mock_products_1 = require('./mock-products');
-var ProductService = (function () {
-    function ProductService() {
+var HighlightDirective = (function () {
+    function HighlightDirective(el, renderer) {
+        renderer.setElementStyle(el.nativeElement, 'backgroundColor', 'yellow');
     }
-    ProductService.prototype.getProducts = function () {
-        return Promise.resolve(mock_products_1.PRODUCTS);
-    };
-    ProductService.prototype.getProduct = function (id) {
-        return this.getProducts().then(function (products) { return products.find(function (product) { return product.id === id; }); });
-    };
-    ProductService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], ProductService);
-    return ProductService;
+    HighlightDirective = __decorate([
+        core_1.Directive({ selector: '[myHighlight]' }), 
+        __metadata('design:paramtypes', [core_1.ElementRef, core_1.Renderer])
+    ], HighlightDirective);
+    return HighlightDirective;
 }());
-exports.ProductService = ProductService;
-//# sourceMappingURL=product.service.js.map
+exports.HighlightDirective = HighlightDirective;
+//# sourceMappingURL=highlight.directive.js.map

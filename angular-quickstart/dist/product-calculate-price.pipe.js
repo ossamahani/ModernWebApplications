@@ -9,21 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var mock_products_1 = require('./mock-products');
-var ProductService = (function () {
-    function ProductService() {
+var ProductCalculatePricePipe = (function () {
+    function ProductCalculatePricePipe() {
     }
-    ProductService.prototype.getProducts = function () {
-        return Promise.resolve(mock_products_1.PRODUCTS);
+    ProductCalculatePricePipe.prototype.transform = function (unitPrice, quantity) {
+        return unitPrice * parseFloat(quantity);
     };
-    ProductService.prototype.getProduct = function (id) {
-        return this.getProducts().then(function (products) { return products.find(function (product) { return product.id === id; }); });
-    };
-    ProductService = __decorate([
-        core_1.Injectable(), 
+    ProductCalculatePricePipe = __decorate([
+        core_1.Pipe({ name: 'calculatePrice' }), 
         __metadata('design:paramtypes', [])
-    ], ProductService);
-    return ProductService;
+    ], ProductCalculatePricePipe);
+    return ProductCalculatePricePipe;
 }());
-exports.ProductService = ProductService;
-//# sourceMappingURL=product.service.js.map
+exports.ProductCalculatePricePipe = ProductCalculatePricePipe;
+//# sourceMappingURL=product-calculate-price.pipe.js.map
