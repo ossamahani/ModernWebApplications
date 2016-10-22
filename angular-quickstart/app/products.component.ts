@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Product } from './product';
 import { ProductService } from './product.service';
 import { Router } from '@angular/router';
@@ -33,6 +33,31 @@ gotoDetail()
 {
   let link = ['/detail', this.selectedProduct.id];
   this.router.navigate(link);
-}   
+}  
+
+@Output() deleteRequest = new EventEmitter<Product>();
+
+
+delete(product: Product): void {
+  this.productService
+      .delete(product.id)
+      .then(() => {
+        this.products = this.products.filter(p => p !== product);
+        if (this.selectedProduct === product) { this.selectedProduct = null; }
+      });
+}
+
+
+add(name: string, price: number): void {
+  name = name.trim();
+  if (!name) { return; }
+  this.productService.create(name, price)
+    .then(product => {
+      this.products.push(product);
+      this.selectedProduct = null;
+    });
+}
+
+
 
 }

@@ -1,7 +1,8 @@
 <h2>My Products</h2>
     <ul class="products">
       <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
-           <span class="badge">{{product.id}}</span> {{product.name}}
+           <span class="badge">{{product.id}}</span> <span> {{product.name}} </span>
+           <button class="delete" (click)="delete(product); $event.stopPropagation()">x</button>
       </li>
     </ul>
 
@@ -11,3 +12,11 @@
   </h2>
   <button (click)="gotoDetail()">View Details</button>
 </div>
+
+   <div>
+  <label>Product name:</label> <input #productName />
+  <label>Product proce:</label> <input #productPrice />
+  <button (click)="add(productName.value, productPrice.value); productName.value=''; productPrice.value=''">
+    Add
+  </button>
+  </div>  

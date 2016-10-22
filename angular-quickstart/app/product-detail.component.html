@@ -12,5 +12,6 @@
       <label>total price: </label>
       <label myHighlight>{{ product.price | calculatePrice : quantity }}</label>
     </div>
+    <button (click)="save()">Save</button>
     <button (click)="goBack()">Back</button>   
 </div>

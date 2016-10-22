@@ -34,6 +34,11 @@ ngOnInit() : void
   });
 }
 
+save(): void {
+  this.productService.update(this.product)
+    .then(() => this.goBack());
+}
+
 
 goBack(): void{
   this.location.back();

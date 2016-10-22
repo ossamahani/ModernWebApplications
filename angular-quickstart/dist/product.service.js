@@ -9,19 +9,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var mock_products_1 = require('./mock-products');
+var http_1 = require('@angular/http');
+require('rxjs/add/operator/toPromise');
 var ProductService = (function () {
-    function ProductService() {
+    function ProductService(http) {
+        this.http = http;
+        this.productsUrl = 'app/products';
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
     ProductService.prototype.getProducts = function () {
-        return Promise.resolve(mock_products_1.PRODUCTS);
+        return this.http.get(this.productsUrl)
+            .toPromise()
+            .then(function (response) { return response.json().data; })
+            .catch(this.handleError);
     };
     ProductService.prototype.getProduct = function (id) {
         return this.getProducts().then(function (products) { return products.find(function (product) { return product.id === id; }); });
     };
+    ProductService.prototype.update = function (product) {
+        var url = this.productsUrl + "/" + product.id;
+        return this.http
+            .put(url, JSON.stringify(product), { headers: this.headers })
+            .toPromise()
+            .then(function () { return product; })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.create = function (name, price) {
+        return this.http
+            .post(this.productsUrl, JSON.stringify({ name: name, price: price }), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json().data; })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.delete = function (id) {
+        var url = this.productsUrl + "/" + id;
+        return this.http.delete(url, { headers: this.headers })
+            .toPromise()
+            .then(function () { return null; })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.handleError = function (error) {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
+    };
     ProductService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], ProductService);
     return ProductService;
 }());

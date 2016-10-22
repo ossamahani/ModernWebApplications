@@ -28,6 +28,11 @@ var ProductDetailComponent = (function () {
                 .then(function (product) { return _this.product = product; });
         });
     };
+    ProductDetailComponent.prototype.save = function () {
+        var _this = this;
+        this.productService.update(this.product)
+            .then(function () { return _this.goBack(); });
+    };
     ProductDetailComponent.prototype.goBack = function () {
         this.location.back();
     };
