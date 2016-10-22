@@ -1,0 +1,16 @@
+<div *ngIf="product">
+    <h2>{{product.name}} details!</h2>
+    <div><label>id: </label><label myHighlight>{{product.id}}</label></div>
+    <div>
+      <label>name:    </label>
+      <input [(ngModel)]="product.name" placeholder="name"/>
+    </div>
+    <div>
+      <label>QU#: </label>
+      <input [(ngModel)]="quantity"></div>
+    <div>
+      <label>total price: </label>
+      <label myHighlight>{{ product.price | calculatePrice : quantity }}</label>
+    </div>
+    <button (click)="goBack()">Back</button>   
+</div>

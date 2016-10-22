@@ -1,32 +1,44 @@
-import { Component, Input } from '@angular/core';
-import { Product } from './product';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Params }   from '@angular/router';
+import { Location }                 from '@angular/common';
 
+import { Product } from './product';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'my-product-detail',
-  template: `
-  <div *ngIf="product">
-    <h2>{{product.name}} details!</h2>
-    <div><label>id: </label><label myHighlight>{{product.id}}</label></div>
-    <div>
-      <label>name: </label>
-      <input [(ngModel)]="product.name" placeholder="name"/>
-    </div>
-    <div>quantity: <input [(ngModel)]="quantity"></div>
-    <div>
-      <label>total price: </label>
-      <label myHighlight>{{ product.price | calculatePrice : quantity }}</label>
-    </div>
+  templateUrl: 'app/product-detail.component.html',
+  styleUrls: [ 'app/product-detail.component.css' ]
 
-  </div>
-`
 })
 
 
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit{
   @Input()
   product: Product;
   quantity=1;
+
+  constructor(
+  private productService: ProductService,
+  private route: ActivatedRoute,
+  private location: Location
+) {}
+
+
+ngOnInit() : void
+{
+  this.route.params.forEach((params: Params) => {
+    let id = +params['id'];
+    this.productService.getProduct(id)
+      .then(product => this.product = product);
+  });
+}
+
+
+goBack(): void{
+  this.location.back();
+}
+
 }
 
 
