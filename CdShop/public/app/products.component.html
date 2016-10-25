@@ -1,0 +1,26 @@
+<h2>My Products</h2>
+    <ul class="products">
+      <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
+           <span class="badge">{{product.id}}</span> <span> {{product.title}} </span>
+           <button class="delete" (click)="delete(product); $event.stopPropagation()">x</button>
+      </li>
+    </ul>
+
+  <div *ngIf="selectedProduct">
+  <h2>
+    {{selectedProduct.title | uppercase}} is my product
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>
+
+   <div>
+  <table>
+      <tr><td><label>Product NO:</label></td> <td> <input #cdNo /> </td></tr>   
+      <tr><td><label>CD Title:</label></td> <td> <input #cdName /></td></tr>  
+      <tr><td><label>CD Artist:</label></td> <td> <input #cdArtist /></td></tr> 
+      <tr><td><label>CD price:</label></td> <td> <input #cdPrice /></td></tr> 
+  </table>
+  <button (click)="add(cdNo.value, cdName.value, cdArtist.value, cdPrice.value); cdNo.value=''; cdName.value=''; cdArtist.value=''; cdPrice.value='' ">
+    Add
+  </button>
+  </div>  
