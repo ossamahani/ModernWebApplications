@@ -53,6 +53,14 @@ export class ProductService {
             .catch(this.handleError);
   }
 
+   addToCart(id:number, title: string, artist:string, price:number): Promise<Product> {
+      return this.http
+         .post(this.productsUrl, JSON.stringify({id:id,title: title, artist: artist, price: price}), {headers: this.headers})
+         .toPromise()
+         .then(res => res.json().data)
+         .catch(this.handleError);
+      }
+
 
 
 

@@ -15,7 +15,7 @@ var ProductsComponent = (function () {
     function ProductsComponent(productService, router) {
         this.productService = productService;
         this.router = router;
-        this.deleteRequest = new core_1.EventEmitter();
+        this.cart = [];
     }
     ProductsComponent.prototype.getProducts = function () {
         var _this = this;
@@ -42,6 +42,34 @@ var ProductsComponent = (function () {
             }
         });
     };
+    ProductsComponent.prototype.addToCart = function (product) {
+        var exist = false;
+        this.cart.forEach(function (item) {
+            if (item.id === product.id) {
+                item.quantity++;
+                exist = true;
+            }
+        });
+        if (!exist) {
+            product.quantity = 1;
+            this.cart.push(product);
+        }
+    };
+    ProductsComponent.prototype.removeFromCart = function (index) {
+        if (this.cart[index].quantity === 1)
+            this.cart.splice(index, 1);
+        else
+            this.cart[index].quantity--;
+    };
+    ;
+    ProductsComponent.prototype.totalPrice = function () {
+        var total = 0.0;
+        this.cart.forEach(function (item) {
+            total += item.price * item.quantity;
+        });
+        return total;
+    };
+    ;
     ProductsComponent.prototype.add = function (id, title, artist, price) {
         var _this = this;
         title = title.trim();
@@ -54,10 +82,6 @@ var ProductsComponent = (function () {
             _this.selectedProduct = null;
         });
     };
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ProductsComponent.prototype, "deleteRequest", void 0);
     ProductsComponent = __decorate([
         core_1.Component({
             selector: 'my-products',

@@ -27,13 +27,15 @@ router.post('/app/products', function (req, res) {
    cd.save(function(err){
          if(err) throw err;
          console.log("cd saved successfully");
-   });  
+         res.send({data : {id:cd.id, title:cd.title, artist:cd.artist, price:cd.price}});
+   }); 
 });
 
 
 router.put('/app/products/:id', function(req,res){
      CD.findOneAndUpdate({'id': req.params.id},{'title':req.body.title, 'artist':req.body.artist, 'price':parseInt(req.body.price)},function (err, cd) {  
            if(err) throw err; 
+           res.send(null);
     });
 });
 
@@ -41,6 +43,7 @@ router.put('/app/products/:id', function(req,res){
 router.delete('/app/products/:id', function(req,res){
      CD.findOneAndRemove({'id': req.params.id },function (err) {  
            if(err) throw err; 
+           res.send(null);
     });
 });
 

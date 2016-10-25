@@ -3,8 +3,9 @@
       <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
            <span class="badge">{{product.id}}</span> <span> {{product.title}} </span>
            <button class="delete" (click)="delete(product); $event.stopPropagation()">x</button>
+           <button class="cart" (click)="addToCart(product); $event.stopPropagation()">Add To Cart</button>
       </li>
-    </ul>
+    </ul>   
 
   <div *ngIf="selectedProduct">
   <h2>
@@ -14,13 +15,29 @@
 </div>
 
    <div>
-  <table>
-      <tr><td><label>Product NO:</label></td> <td> <input #cdNo /> </td></tr>   
-      <tr><td><label>CD Title:</label></td> <td> <input #cdName /></td></tr>  
-      <tr><td><label>CD Artist:</label></td> <td> <input #cdArtist /></td></tr> 
-      <tr><td><label>CD price:</label></td> <td> <input #cdPrice /></td></tr> 
-  </table>
-  <button (click)="add(cdNo.value, cdName.value, cdArtist.value, cdPrice.value); cdNo.value=''; cdName.value=''; cdArtist.value=''; cdPrice.value='' ">
-    Add
-  </button>
+      <table>
+        <tr><td><label>Product NO:</label></td> <td> <input #cdNo /> </td></tr>   
+        <tr><td><label>CD Title:</label></td> <td> <input #cdName /></td></tr>  
+        <tr><td><label>CD Artist:</label></td> <td> <input #cdArtist /></td></tr> 
+        <tr><td><label>CD price:</label></td> <td> <input #cdPrice /></td></tr> 
+      </table>
+      <button (click)="add(cdNo.value, cdName.value, cdArtist.value, cdPrice.value); cdNo.value=''; cdName.value=''; cdArtist.value=''; cdPrice.value='' ">Add</button>
   </div>  
+
+  <div>
+    <h2>Shopping Cart</h2>
+     <ul class="products">
+      <!--<li><span>ID</span> <span>Title</span>  <span>Artist</span>  <span>Quantity</span>  <span>Total Price</span> </li>-->
+      <li *ngFor="let product of cart; let i = index">
+           <span class="badge">{{product.id}}</span>
+           <span> {{product.title}} </span>
+           <span>{{product.artist}} </span>
+           <span> {{product.quantity}} </span>
+           <span> {{ product.price | calculatePrice : product.quantity }} </span>
+           <span> <button class="delete" (click)="removeFromCart(i); $event.stopPropagation()">x</button> </span>
+      </li>
+     </ul>
+
+    <h1 myHighlight> Total Price :  {{totalPrice()}} </h1>
+  </div>
+

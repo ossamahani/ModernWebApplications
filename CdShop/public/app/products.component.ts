@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class ProductsComponent implements OnInit { 
   selectedProduct: Product;
   products : Product[];
+  cart : Product[] = [];
+
 
   constructor(private productService : ProductService, private router: Router){}
 
@@ -34,9 +36,6 @@ gotoDetail()
   this.router.navigate(link);
 }  
 
-@Output() deleteRequest = new EventEmitter<Product>();
-
-
 delete(product: Product): void {
   this.productService
       .delete(product.id)
@@ -46,6 +45,41 @@ delete(product: Product): void {
       });
 }
 
+
+ addToCart(product: Product):void {
+    let exist = false;
+		this.cart.forEach(function(item){
+			if (item.id === product.id)
+			{
+				item.quantity++;
+				exist = true;
+			}		
+		});
+		
+		if (!exist)
+		{			
+			product.quantity = 1;
+			this.cart.push(product);
+		}
+ }
+
+ removeFromCart(index:number)
+ {	
+   if (this.cart[index].quantity === 1)
+		  	this.cart.splice(index, 1);
+		else
+				this.cart[index].quantity--;	
+ };
+
+
+ totalPrice() : number
+	{
+		var total = 0.0;
+		this.cart.forEach(function(item){	
+			total+=item.price * item.quantity;		
+		});
+		return total;
+	};
 
 add(id:number, title: string, artist:string, price: number): void {
   title = title.trim();

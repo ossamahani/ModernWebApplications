@@ -19,7 +19,7 @@ var DashboardComponent = (function () {
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.productService.getProducts().then(function (products) { return _this.products = products.slice(1, 2); });
+        this.productService.getProducts().then(function (products) { return _this.products = products.slice(1, 3); });
     };
     DashboardComponent.prototype.gotoDetail = function (product) {
         var link = ['/detail', product.id];

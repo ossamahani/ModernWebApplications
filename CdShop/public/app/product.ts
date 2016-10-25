@@ -3,4 +3,5 @@ export class Product {
   title: string;
   artist:string;
   price: number;
+  quantity:number;
 }

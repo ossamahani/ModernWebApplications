@@ -18,7 +18,7 @@ constructor(private productService : ProductService, private router: Router ){}
 
 ngOnInit() : void
 {
-    this.productService.getProducts().then(products=>this.products=products.slice(1,2));
+    this.productService.getProducts().then(products=>this.products=products.slice(1,3));
 }
 
 gotoDetail(product: Product)
