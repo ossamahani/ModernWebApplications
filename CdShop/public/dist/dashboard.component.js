@@ -19,7 +19,7 @@ var DashboardComponent = (function () {
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.productService.getProducts().then(function (products) { return _this.products = products.slice(1, 3); });
+        this.productService.getProducts().then(function (products) { return _this.products = products.slice(1, 4); });
     };
     DashboardComponent.prototype.gotoDetail = function (product) {
         var link = ['/detail', product.id];
@@ -28,8 +28,7 @@ var DashboardComponent = (function () {
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'my-dashboard',
-            templateUrl: 'app/dashboard.component.html',
-            styleUrls: ['app/dashboard.component.css']
+            templateUrl: 'app/dashboard.component.html'
         }), 
         __metadata('design:paramtypes', [product_service_1.ProductService, router_1.Router])
     ], DashboardComponent);

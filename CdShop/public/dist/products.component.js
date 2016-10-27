@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var product_1 = require('./product');
 var product_service_1 = require('./product.service');
 var router_1 = require('@angular/router');
 var ProductsComponent = (function () {
@@ -16,7 +17,15 @@ var ProductsComponent = (function () {
         this.productService = productService;
         this.router = router;
         this.cart = [];
+        this.active = true;
+        this.cd = new product_1.Product();
     }
+    ProductsComponent.prototype.newProduct = function () {
+        var _this = this;
+        this.cd = new product_1.Product();
+        this.active = false;
+        setTimeout(function () { return _this.active = true; }, 0);
+    };
     ProductsComponent.prototype.getProducts = function () {
         var _this = this;
         this.productService.getProducts().then(function (products) { return _this.products = products; });
@@ -70,16 +79,13 @@ var ProductsComponent = (function () {
         return total;
     };
     ;
-    ProductsComponent.prototype.add = function (id, title, artist, price) {
+    ProductsComponent.prototype.add = function (cd) {
         var _this = this;
-        title = title.trim();
-        if (!title) {
-            return;
-        }
-        this.productService.create(id, title, artist, price)
+        this.productService.create(cd)
             .then(function (product) {
             _this.products.push(product);
             _this.selectedProduct = null;
+            _this.newProduct();
         });
     };
     ProductsComponent = __decorate([

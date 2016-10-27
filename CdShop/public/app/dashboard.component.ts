@@ -7,8 +7,8 @@ import { ProductService } from './product.service';
 
 @Component({
   selector: 'my-dashboard',
-  templateUrl: 'app/dashboard.component.html',
-  styleUrls: [ 'app/dashboard.component.css' ]
+  templateUrl: 'app/dashboard.component.html'
+  //styleUrls: [ 'app/dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit{
 
@@ -18,7 +18,7 @@ constructor(private productService : ProductService, private router: Router ){}
 
 ngOnInit() : void
 {
-    this.productService.getProducts().then(products=>this.products=products.slice(1,3));
+    this.productService.getProducts().then(products=>this.products=products.slice(1,4));
 }
 
 gotoDetail(product: Product)

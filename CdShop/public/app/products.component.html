@@ -1,43 +1,107 @@
-<h2>My Products</h2>
-    <ul class="products">
-      <li *ngFor="let product of products" [class.selected]="product === selectedProduct" (click)="onSelect(product)">
-           <span class="badge">{{product.id}}</span> <span> {{product.title}} </span>
-           <button class="delete" (click)="delete(product); $event.stopPropagation()">x</button>
-           <button class="cart" (click)="addToCart(product); $event.stopPropagation()">Add To Cart</button>
-      </li>
-    </ul>   
-
+<h2>My CDs</h2>
+  <div class="list-group">
+    <a role="button" class="list-group-item list-group-item-action clearfix"
+      *ngFor="let product of products"
+      [class.active]="product === selectedProduct" 
+      (click)="onSelect(product)">
+        <strong><span class="tag tag-default tag-pill">#{{product.id}}</span> <br>
+        {{product.title}}</strong> <br> {{product.artist}} <br> <p class="text-danger">${{product.price}}</p>
+        <span class="pull-right">
+          <button class="btn btn-info" (click)="addToCart(product); $event.stopPropagation()">Add To Cart</button>
+          <button class="btn btn-danger" (click)="delete(product); $event.stopPropagation()">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </span>
+    </a>
+  </div>
   <div *ngIf="selectedProduct">
   <h2>
-    {{selectedProduct.title | uppercase}} is my product
+    {{selectedProduct.title | uppercase}} is my selected CD
   </h2>
   <button (click)="gotoDetail()">View Details</button>
 </div>
 
-   <div>
-      <table>
-        <tr><td><label>Product NO:</label></td> <td> <input #cdNo /> </td></tr>   
-        <tr><td><label>CD Title:</label></td> <td> <input #cdName /></td></tr>  
-        <tr><td><label>CD Artist:</label></td> <td> <input #cdArtist /></td></tr> 
-        <tr><td><label>CD price:</label></td> <td> <input #cdPrice /></td></tr> 
-      </table>
-      <button (click)="add(cdNo.value, cdName.value, cdArtist.value, cdPrice.value); cdNo.value=''; cdName.value=''; cdArtist.value=''; cdPrice.value='' ">Add</button>
-  </div>  
+<h2>Shopping Cart</h2>
+  <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Artist Name</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of cart; let i = index">
+      <th scope="row">{{product.id}}</th>
+      <td>{{product.title}}</td>
+      <td>{{product.artist}}</td>
+      <td>{{product.quantity}}</td>
+      <td>{{ product.price | calculatePrice : product.quantity | number }}</td>
+      <td><button class="btn btn-danger" (click)="removeFromCart(i); $event.stopPropagation()"><span class="glyphicon glyphicon-trash"></span></button></td>
+    </tr>
+  </tbody>
+  </table>
+<div class="alert alert-success alert-message" role="alert">
+  <h3>
+    <b>Total Price: </b>{{totalPrice() | number}}
+  </h3>
+</div>
 
-  <div>
-    <h2>Shopping Cart</h2>
-     <ul class="products">
-      <!--<li><span>ID</span> <span>Title</span>  <span>Artist</span>  <span>Quantity</span>  <span>Total Price</span> </li>-->
-      <li *ngFor="let product of cart; let i = index">
-           <span class="badge">{{product.id}}</span>
-           <span> {{product.title}} </span>
-           <span>{{product.artist}} </span>
-           <span> {{product.quantity}} </span>
-           <span> {{ product.price | calculatePrice : product.quantity }} </span>
-           <span> <button class="delete" (click)="removeFromCart(i); $event.stopPropagation()">x</button> </span>
-      </li>
-     </ul>
 
-    <h1 myHighlight> Total Price :  {{totalPrice()}} </h1>
+<h2>Add New CD</h2>
+
+<form *ngIf="active" (ngSubmit)="add(cd)" #cdForm="ngForm">
+<div class="form-horizontal">
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="number">CD Number:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" #id="ngModel" [(ngModel)]="cd.id" name="id" id="id" placeholder="Enter CD Number" required>
+      <div [hidden]="id.valid || id.pristine" class="alert alert-danger">
+           Number is required
+      </div>
+   </div>
+  </div>
+    
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="title">Title:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" #title="ngModel" [(ngModel)]="cd.title" name="title" id="tile" placeholder="Enter Title" required>
+      <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+           Title is required
+      </div>
+    </div>
   </div>
 
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="artist">Artist:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" #artist="ngModel" [(ngModel)]="cd.artist" id="artist" name="artist" placeholder="Enter Artist Name" required>
+      <div [hidden]="artist.valid || artist.pristine" class="alert alert-danger">
+           Artist is required
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="price">Price:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" #price="ngModel" [(ngModel)]="cd.price" id="price" name="price" placeholder="Enter Price" required>
+      <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
+           Price is required
+      </div>
+    </div>
+  </div>
+  
+   <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default" [disabled]="!cdForm.form.valid">Add</button>
+    </div>
+  </div>
+
+  </div>
+</form>

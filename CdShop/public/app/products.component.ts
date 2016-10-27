@@ -14,6 +14,14 @@ export class ProductsComponent implements OnInit {
   selectedProduct: Product;
   products : Product[];
   cart : Product[] = [];
+  active = true;
+  cd : Product = new Product();
+  newProduct() {
+    this.cd = new Product();
+    this.active = false;
+    setTimeout(() => this.active = true, 0);
+  }
+  
 
 
   constructor(private productService : ProductService, private router: Router){}
@@ -81,13 +89,12 @@ delete(product: Product): void {
 		return total;
 	};
 
-add(id:number, title: string, artist:string, price: number): void {
-  title = title.trim();
-  if (!title) { return; }
-  this.productService.create(id, title, artist, price)
+add(cd:Product): void {
+  this.productService.create(cd)
     .then(product => {
       this.products.push(product);
       this.selectedProduct = null;
+      this.newProduct();
     });
 }
 

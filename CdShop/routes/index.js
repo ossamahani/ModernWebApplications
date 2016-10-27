@@ -21,8 +21,14 @@ router.post('/app/products', function (req, res) {
          id : parseInt(req.body.id),
          title : req.body.title,
          artist : req.body.artist,
-         price : parseInt(req.body.price)
+         price : parseFloat(req.body.price)
    });
+
+
+   console.log(parseInt(req.body.id));
+   console.log(req.body.title);
+   console.log(req.body.artist);
+   console.log(parseFloat(req.body.price));
 
    cd.save(function(err){
          if(err) throw err;
@@ -33,7 +39,7 @@ router.post('/app/products', function (req, res) {
 
 
 router.put('/app/products/:id', function(req,res){
-     CD.findOneAndUpdate({'id': req.params.id},{'title':req.body.title, 'artist':req.body.artist, 'price':parseInt(req.body.price)},function (err, cd) {  
+     CD.findOneAndUpdate({'id': req.params.id},{'title':req.body.title, 'artist':req.body.artist, 'price':parseFloat(req.body.price)},function (err, cd) {  
            if(err) throw err; 
            res.send(null);
     });
@@ -48,8 +54,16 @@ router.delete('/app/products/:id', function(req,res){
 });
 
 router.get('/app/products', function(req,res){
-     CD.find({}, { _id:0, __v:0}).lean().exec(function (err, cds) {   
-     res.send({data: cds});
+      query = {};
+      if (req.query.title != "" &&  req.query.title != undefined)
+      {
+            query = {title : {$regex : req.query.title} }; 
+      }
+
+      console.log(query);
+
+      CD.find(query, { _id:0, __v:0}).lean().exec(function (err, cds) {   
+      res.send({data: cds});
     });
 });
 

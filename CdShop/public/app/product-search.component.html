@@ -1,10 +1,17 @@
-<div id="search-component">
-  <h4>CD Search</h4>
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-  <div>
-    <div *ngFor="let product of products | async"
-         (click)="gotoDetail(product)" class="search-result" >
+<div id="search-component" class="row">
+  <h2>Find more CDs</h2>
+  <div class="input-group col-md-12">
+    <input type="text" class="  search-query form-control" placeholder="Search" #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+    <span class="input-group-btn">
+      <button class="btn btn-danger" type="button">
+        <span class=" glyphicon glyphicon-search"></span>
+      </button>
+    </span>
+  </div>
+  <div class="list-group">
+    <a *ngFor="let product of products | async"
+         (click)="gotoDetail(product)" class="list-group-item" role="button">
       {{product.title}}
-    </div>
+    </a>
   </div>
 </div>

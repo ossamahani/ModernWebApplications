@@ -7,8 +7,8 @@ import { ProductService } from './product.service';
 
 @Component({
   selector: 'my-product-detail',
-  templateUrl: 'app/product-detail.component.html',
-  styleUrls: [ 'app/product-detail.component.css' ]
+  templateUrl: 'app/product-detail.component.html'
+  //styleUrls: [ 'app/product-detail.component.css' ]
 
 })
 

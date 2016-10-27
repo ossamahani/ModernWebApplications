@@ -34,9 +34,9 @@ var ProductService = (function () {
             .then(function () { return product; })
             .catch(this.handleError);
     };
-    ProductService.prototype.create = function (id, title, artist, price) {
+    ProductService.prototype.create = function (cd) {
         return this.http
-            .post(this.productsUrl, JSON.stringify({ id: id, title: title, artist: artist, price: price }), { headers: this.headers })
+            .post(this.productsUrl, JSON.stringify({ id: cd.id, title: cd.title, artist: cd.artist, price: cd.price }), { headers: this.headers })
             .toPromise()
             .then(function (res) { return res.json().data; })
             .catch(this.handleError);

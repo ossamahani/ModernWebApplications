@@ -43,8 +43,7 @@ var ProductDetailComponent = (function () {
     ProductDetailComponent = __decorate([
         core_1.Component({
             selector: 'my-product-detail',
-            templateUrl: 'app/product-detail.component.html',
-            styleUrls: ['app/product-detail.component.css']
+            templateUrl: 'app/product-detail.component.html'
         }), 
         __metadata('design:paramtypes', [product_service_1.ProductService, router_1.ActivatedRoute, common_1.Location])
     ], ProductDetailComponent);

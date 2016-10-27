@@ -37,9 +37,9 @@ export class ProductService {
       }
 
 
-      create(id:number, title: string, artist:string, price:number): Promise<Product> {
+      create(cd:Product): Promise<Product> {
       return this.http
-         .post(this.productsUrl, JSON.stringify({id:id,title: title, artist: artist, price: price}), {headers: this.headers})
+         .post(this.productsUrl, JSON.stringify({id:cd.id,title: cd.title, artist: cd.artist, price: cd.price}), {headers: this.headers})
          .toPromise()
          .then(res => res.json().data)
          .catch(this.handleError);
